@@ -13,6 +13,10 @@ body {
   font-family:
     system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif,
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  background-color: whitesmoke;
 }
 img,
 picture,
@@ -51,4 +55,42 @@ h6 {
 #root,
 #__next {
   isolation: isolate;
+}
+
+.container {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.search-bar {
+  display: flex;
+  gap: 1rem;
+}
+
+#searchCityInput {
+  flex-grow: 1;
+  margin: 0px;
+  border: 1px solid grey;
+  border-radius: 8px;
+  padding: 8px;
+}
+
+#searchCityBtn {
+  margin: 0px;
+  border: 1px solid orange;
+  border-radius: 8px;
+  padding: 8px 16px;
+  color: white;
+  background-color: orange;
+  font-weight: 700;
+}
+
+#searchCityBtn:hover {
+  border: 1px solid orangered;
+  color: white;
+  background-color: orangered;
 }

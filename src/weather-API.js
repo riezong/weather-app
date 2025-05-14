@@ -8,59 +8,37 @@ async function getWeather(city) {
     { mode: "cors" },
   );
   const JSONdata = await response.json();
+  return JSONdata;
   // console.log(JSONdata);
-
-  function getLocation() {
-    let location = JSONdata.address;
-    return location;
-  }
-
-  function getTime() {
-    let time = JSONdata.currentConditions.datetime;
-    return time;
-  }
-
-  function getTemp() {
-    let tempF = JSONdata.currentConditions.temp;
-    tempF = Math.round(tempF * 100) / 100;
-    let tempC = ((tempF - 32) * 5) / 9;
-    tempC = Math.round(tempC * 100) / 100;
-    return { tempF, tempC };
-  }
-
-  function getCondition() {
-    let conditions = JSONdata.currentConditions.conditions;
-    return conditions;
-  }
-
-  return { getLocation, getTime, getTemp, getCondition };
 }
 
 // Pause execution until the getWeather Promise resolves.
-async function processWeatherData(targetCity) {
+async function processWeatherData(city) {
   try {
-    const weatherFunctions = await getWeather(targetCity);
+    const weatherFunctions = await getWeather(city);
 
-    const location = weatherFunctions.getLocation();
-    const time = weatherFunctions.getTime();
-    const temperatures = weatherFunctions.getTemp();
-    const condition = weatherFunctions.getCondition();
+    const location = weatherFunctions.address;
+    const time = weatherFunctions.currentConditions.datetime;
+
+    let tempF = weatherFunctions.currentConditions.temp;
+    tempF = Math.round(tempF * 100) / 100;
+    let tempC = ((tempF - 32) * 5) / 9;
+    tempC = Math.round(tempC * 100) / 100;
+    const temperatures = { tempF, tempC }; // Store both F and C in an object
+
+    const conditions = weatherFunctions.currentConditions.conditions;
 
     console.log("Location:", location);
     console.log("Time:", time);
     console.log("Temperature (F/C):", temperatures);
-    console.log("Condition:", condition);
+    console.log("Condition:", conditions);
 
-    const div = document.querySelector(".weather-data");
-    div.textContent =
-      "Location: " +
-      location +
-      " Time: " +
-      time +
-      " Temperature (C): " +
-      temperatures.tempC +
-      " Condition: " +
-      condition;
+    return {
+      location: location,
+      time: time,
+      temperatures: temperatures,
+      conditions: conditions,
+    };
   } catch (error) {
     console.error("Error fetching or processing weather data:", error);
   }
