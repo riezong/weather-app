@@ -1,10 +1,18 @@
 import processWeatherData from "./weather-API";
+import GIPHY from "./Giphy-API";
+
+function capitalise(word) {
+  return word.charAt(0).toUpperCase() + word.slice(1);
+}
+capitalise("word");
 
 async function renderWeatherData(city) {
   const weatherData = await processWeatherData(city);
   console.log(weatherData);
 
   let location = weatherData.location;
+  location = capitalise(location);
+  let coordinates = weatherData.coordinates;
   let time = weatherData.time;
   let temp = weatherData.temperatures;
   let conditions = weatherData.conditions;
@@ -13,12 +21,18 @@ async function renderWeatherData(city) {
   div.textContent =
     "Location: " +
     location +
+    " Coordinates: " +
+    coordinates.latitude +
+    "," +
+    coordinates.longitude +
     " Time: " +
     time +
     " Temperature (C): " +
     temp.tempC +
     " Condition: " +
     conditions;
+
+  GIPHY(conditions);
 }
 
 function DOM() {

@@ -8,8 +8,8 @@ async function getWeather(city) {
     { mode: "cors" },
   );
   const JSONdata = await response.json();
-  return JSONdata;
   // console.log(JSONdata);
+  return JSONdata;
 }
 
 // Pause execution until the getWeather Promise resolves.
@@ -18,6 +18,9 @@ async function processWeatherData(city) {
     const weatherFunctions = await getWeather(city);
 
     const location = weatherFunctions.address;
+    const latitude = weatherFunctions.latitude;
+    const longitude = weatherFunctions.longitude;
+    const coordinates = { latitude, longitude };
     const time = weatherFunctions.currentConditions.datetime;
 
     let tempF = weatherFunctions.currentConditions.temp;
@@ -29,12 +32,14 @@ async function processWeatherData(city) {
     const conditions = weatherFunctions.currentConditions.conditions;
 
     console.log("Location:", location);
+    console.log("Coordinates: ", coordinates);
     console.log("Time:", time);
     console.log("Temperature (F/C):", temperatures);
     console.log("Condition:", conditions);
 
     return {
       location: location,
+      coordinates: coordinates,
       time: time,
       temperatures: temperatures,
       conditions: conditions,
