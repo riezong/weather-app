@@ -1,5 +1,3 @@
-import processWeatherData from "./weather-API";
-
 export default function GIPHY(weatherConditions) {
   // GIPHY
   const img = document.querySelector("img");

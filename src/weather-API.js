@@ -1,6 +1,5 @@
 // Visual Crossing API
 async function getWeather(city) {
-  let targetCity = city;
   const response = await fetch(
     "https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/" +
       city +
